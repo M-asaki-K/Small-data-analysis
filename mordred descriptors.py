@@ -14,7 +14,7 @@ import math
 # データ可視化ライブラリ
 import matplotlib.pyplot as plt
 
-df = pd.read_csv(r'C:\Users\uni21\OneDrive\デスクトップ\Data science\Takeda\sample-data-master\sample-data-master\Materials Project 2.csv')
+df = pd.read_csv(r'C:\Users\Materials Project 2.csv')
 df = df[df.columns[1:5]]
 smiles = df["Smiles"]
 df.head()
@@ -37,4 +37,4 @@ df_summary = pd.concat([df["Smiles"], df["EA (eV)"], df_descriptors],axis=1)
 
 df_summary.head(1)
 
-df_summary.to_csv(r'C:\Users\uni21\OneDrive\デスクトップ\Data science\Takeda\sample-data-master\sample-data-master\Materials Project 3.csv', index = False)
+df_summary.to_csv(r'C:\Users\Materials Project 3.csv', index = False)
