@@ -1,43 +1,43 @@
-#ЉЦAѓpѓbѓPЃ[ѓW‚МЊД‚СЏo‚µЃi•K‚ё‚µ‚а‚±‚±‚ЕЋg‚¤‚Ж‚НЊА‚и‚Ь‚№‚сЃj
-library(readr) #ѓfЃ[ѓ^“З‚ЭЌћ‚Э
-library(dplyr) #ѓfЃ[ѓ^‘ЂЌм€к”К
-library(assertr) #ѓfЃ[ѓ^‚Мѓ`ѓFѓbѓN
-library(rsample)Ѓ@#ѓTѓ“ѓvѓЉѓ“ѓO
-library(genalg)Ѓ@#€в“`“IѓAѓ‹ѓSѓЉѓYѓЂ
-library(pls)Ѓ@#PLS
-library(e1071)Ѓ@#SVR
-library(kernlab) #ѓ}ѓnѓ‰ѓmѓrѓX‹——ЈЊvЋZ‚ЙЋg—p
-library(iml)Ѓ@#‹@ЉBЉwЏKЊ‹‰К‚М‰ВЋ‹‰»ѓpѓbѓPЃ[ѓW
-library(devtools)Ѓ@#€к”К“IЉeЋнѓcЃ[ѓ‹
-library(parallelDist) #•А—сЊvЋZѓcЃ[ѓ‹
-library(bigmemory)Ѓ@#ѓЃѓ‚ѓЉђЯ–сѓcЃ[ѓ‹
-library(rBayesianOptimization)Ѓ@#ѓxѓCѓYЌЕ“K‰»
+#й–ўйЂЈгѓ‘гѓѓг‚±гѓјг‚ёгЃ®е‘јгЃіе‡єгЃ—пј€еї…гЃљгЃ—г‚‚гЃ“гЃ“гЃ§дЅїгЃ†гЃЁгЃЇй™ђг‚ЉгЃѕгЃ›г‚“пј‰
+library(readr) #гѓ‡гѓјг‚їиЄ­гЃїиѕјгЃї
+library(dplyr) #гѓ‡гѓјг‚їж“ЌдЅњдёЂи€¬
+library(assertr) #гѓ‡гѓјг‚їгЃ®гѓЃг‚§гѓѓг‚Ї
+library(rsample)гЂЂ#г‚µгѓігѓ—гѓЄгѓіг‚°
+library(genalg)гЂЂ#йЃєдјќзљ„г‚ўгѓ«г‚ґгѓЄг‚єгѓ 
+library(pls)гЂЂ#PLS
+library(e1071)гЂЂ#SVR
+library(kernlab) #гѓћгѓЏгѓ©гѓЋгѓ“г‚№и·ќй›ўиЁ€з®—гЃ«дЅїз”Ё
+library(iml)гЂЂ#ж©џжў°е­¦зї’зµђжћњгЃ®еЏЇи¦–еЊ–гѓ‘гѓѓг‚±гѓјг‚ё
+library(devtools)гЂЂ#дёЂи€¬зљ„еђ„зЁ®гѓ„гѓјгѓ«
+library(parallelDist) #дё¦е€—иЁ€з®—гѓ„гѓјгѓ«
+library(bigmemory)гЂЂ#гѓЎгѓўгѓЄзЇЂзґ„гѓ„гѓјгѓ«
+library(rBayesianOptimization)гЂЂ#гѓ™г‚¤г‚єжњЂйЃ©еЊ–
 
 pkgs <- c('foreach', 'doParallel')
 lapply(pkgs, require, character.only = T)
-#•А—с‰»ЊvЋZ‚ЕЋg—pЏo—€‚йѓXѓЊѓbѓhђ”‚МђЭ’иЃiѓfѓtѓHѓ‹ѓg‚Н‘S•”Ћg—pЃj
+#дё¦е€—еЊ–иЁ€з®—гЃ§дЅїз”Ёе‡єжќҐг‚‹г‚№гѓ¬гѓѓгѓ‰ж•°гЃ®иЁ­е®љпј€гѓ‡гѓ•г‚©гѓ«гѓ€гЃЇе…ЁйѓЁдЅїз”Ёпј‰
 registerDoParallel(makeCluster(detectCores()))
 
-#ѓtѓ@ѓCѓ‹ѓpѓX‚М“З‚ЭЌћ‚ЭЃiѓGѓNѓXѓvѓЌЃ[ѓ‰Џo‚Д‚­‚й‚М‚ЕЉу–]‚Мcsv‚р‘I‘рЃj
+#гѓ•г‚Ўг‚¤гѓ«гѓ‘г‚№гЃ®иЄ­гЃїиѕјгЃїпј€г‚Ёг‚Їг‚№гѓ—гѓ­гѓјгѓ©е‡єгЃ¦гЃЏг‚‹гЃ®гЃ§еёЊжњ›гЃ®csvг‚’йЃёжЉћпј‰
 path <- file.choose()
 path
 
-#CSVѓtѓ@ѓCѓ‹‚р“З‚ЭЌћ‚ЭЃAcompounds‚Ж‚ў‚¤–ј‘O‚Е•ЫЉЗ
+#CSVгѓ•г‚Ўг‚¤гѓ«г‚’иЄ­гЃїиѕјгЃїгЂЃcompoundsгЃЁгЃ„гЃ†еђЌе‰ЌгЃ§дїќз®Ў
 compounds <- read.csv(path)
 View(compounds)
 
-#•s•K—v‚И—с‚Є‚ ‚йЏкЌ‡‚НЃAcompounds[, -c(1,3:6)]‚М‚ж‚¤‚Й‚µ‚ДЏњЉOЃi‚±‚МЏкЌ‡‚Н1,3Ѓ`6—с–Ъ‚рЏњЉOЃj
+#дёЌеї…и¦ЃгЃЄе€—гЃЊгЃ‚г‚‹е ґеђ€гЃЇгЂЃcompounds[, -c(1,3:6)]гЃ®г‚€гЃ†гЃ«гЃ—гЃ¦й™¤е¤–пј€гЃ“гЃ®е ґеђ€гЃЇ1,3пЅћ6е€—з›®г‚’й™¤е¤–пј‰
 trimed.compounds <- compounds[,]
 
-#NA’l‚рЉЬ‚Ю—с‚рЌнЏњЃiЌЎ‰сЃA1,2—с–Ъ‚НSMILES‚Ж–Ъ“I•Пђ”‚И‚М‚Е‚ў‚Б‚Ѕ‚сЏњЉOЃj
+#NAеЂ¤г‚’еђ«г‚Ђе€—г‚’е‰Љй™¤пј€д»Ље›ћгЂЃ1,2е€—з›®гЃЇSMILESгЃЁз›®зљ„е¤‰ж•°гЃЄгЃ®гЃ§гЃ„гЃЈгЃџг‚“й™¤е¤–пј‰
 tx<-t(trimed.compounds[, -c(1,2)])
 txomit<-na.omit(tx) 
 trimed.compounds<-t(txomit)
 View(trimed.compounds)
-#compounds‚М2—с–ЪЃi–Ъ“I•Пђ”Ѓj‚рЏ€—ќЊг‚МѓfЃ[ѓ^ѓZѓbѓg‚ЖЊ‹Ќ‡ЃiNA’lЉЬ‚ЮЌs‚Є‚ ‚й‚М‚ЕЃA‚±‚к‚НЋџ‚МЏ€—ќ‚ЕЌнЏњЃj
+#compoundsгЃ®2е€—з›®пј€з›®зљ„е¤‰ж•°пј‰г‚’е‡¦зђ†еѕЊгЃ®гѓ‡гѓјг‚їг‚»гѓѓгѓ€гЃЁзµђеђ€пј€NAеЂ¤еђ«г‚ЂиЎЊгЃЊгЃ‚г‚‹гЃ®гЃ§гЂЃгЃ“г‚ЊгЃЇж¬ЎгЃ®е‡¦зђ†гЃ§е‰Љй™¤пј‰
 trimed.compounds <- (cbind(compounds[,c(2)],trimed.compounds[, ]))
 
-#NA’l‚рЉЬ‚ЮЌs‚рЌнЏњ
+#NAеЂ¤г‚’еђ«г‚ЂиЎЊг‚’е‰Љй™¤
 complete.compounds <- trimed.compounds[,]
 is.completes <- complete.cases((complete.compounds[, ]))
 is.completes
@@ -45,25 +45,25 @@ complete.compounds <- complete.compounds[is.completes,]
 
 View(complete.compounds)
 
-#–Ъ“I•Пђ”y‚рђЭ’иЃicomplete.compounds‚М1—с–ЪЃj
+#з›®зљ„е¤‰ж•°yг‚’иЁ­е®љпј€complete.compoundsгЃ®1е€—з›®пј‰
 y <- complete.compounds[,c(1)]
 y
 
-#ЉO‚к’l‚рЉЬ‚ЮЏкЌ‡‚Н‘Ођ”•ПЉ·ЃiЌЕЏ¬’l‚Є0‚Ж‚И‚й‚ж‚¤ЃjЃAЉЬ‚Ь‚И‚ўЏкЌ‡‚Нђі‹K‰»•ПЉ·ЃiЏЪЌЧ‚И’и‹`‚Н“®‰жЋQЏЖЃj
-if (((quantile(y, 0.75) - quantile(y, 0.25))*1.5 + quantile(y, 0.75) - max(y)) < 0){                 # if ( ЏрЊЏЋ® )
-  preprocessed.y <- log((y - min(y) + 1))                   #  ЏрЊЏЋ®‚Є TRUE  ‚М‚Ж‚«‚ЙЋАЌs‚і‚к‚й•”•Є
+#е¤–г‚ЊеЂ¤г‚’еђ«г‚Ђе ґеђ€гЃЇеЇѕж•°е¤‰жЏ›пј€жњЂе°ЏеЂ¤гЃЊ0гЃЁгЃЄг‚‹г‚€гЃ†пј‰гЂЃеђ«гЃѕгЃЄгЃ„е ґеђ€гЃЇж­Ји¦ЏеЊ–е¤‰жЏ›пј€и©ізґ°гЃЄе®љзѕ©гЃЇе‹•з”»еЏ‚з…§пј‰
+if (((quantile(y, 0.75) - quantile(y, 0.25))*1.5 + quantile(y, 0.75) - max(y)) < 0){                 # if ( жќЎд»¶ејЏ )
+  preprocessed.y <- log((y - min(y) + 1))                   #  жќЎд»¶ејЏгЃЊ TRUE  гЃ®гЃЁгЃЌгЃ«е®џиЎЊгЃ•г‚Њг‚‹йѓЁе€†
 } else if ((quantile(y, 0.25) - (quantile(y, 0.75) - quantile(y, 0.25))*1.5 - min(y))*(-1) < 0){
   preprocessed.y <- (y - mean(y)) / sd(y)                   # 
 }
 
-#ђа–ѕ•Пђ”x‚рђЭ’иЃicomplete.compounds‚М1—с–Ъ€ИЉOЃj
+#иЄ¬жЋе¤‰ж•°xг‚’иЁ­е®љпј€complete.compoundsгЃ®1е€—з›®д»Ґе¤–пј‰
 x <- complete.compounds[, -c(1)]
 
-#•WЏЂ•ОЌ·‚Є0‚М—с‚рЌнЏњ
+#жЁ™жє–еЃЏе·®гЃЊ0гЃ®е€—г‚’е‰Љй™¤
 sd.is.not.0 <- x.sds != 0
 x <- x[, sd.is.not.0]
 
-#‹¤‘ЉЉЦ‚Ж‚И‚й—с‚М•Р•ы‚рЌнЏњЃi‘ЉЉЦЊWђ”‚Ми‡’l‚Нcutoff‚ЕђЭ’иЃAЌЎ‰с‚Н0.99Ѓj
+#е…±з›ёй–ўгЃЁгЃЄг‚‹е€—гЃ®з‰‡ж–№г‚’е‰Љй™¤пј€з›ёй–ўдї‚ж•°гЃ®й–ѕеЂ¤гЃЇcutoffгЃ§иЁ­е®љгЂЃд»Ље›ћгЃЇ0.99пј‰
 library(caret)
 
 df2 <- as.matrix(cor(x))
@@ -72,10 +72,10 @@ hc = sort(hc)
 reduced_Data = x[,-c(hc)]
 
 x <- reduced_Data
-#reduced_Data‚Н‚±‚МЊгЋg‚н‚И‚ў‚М‚ЕЃAѓЃѓ‚ѓЉЏг‚©‚зЌнЏњ
+#reduced_DataгЃЇгЃ“гЃ®еѕЊдЅїг‚ЏгЃЄгЃ„гЃ®гЃ§гЂЃгѓЎгѓўгѓЄдёЉгЃ‹г‚‰е‰Љй™¤
 rm(reduced_Data)
 
-#ЉO‚к’l‚рЉЬ‚ЮЏкЌ‡‚Н‘Ођ”•ПЉ·ЃiЌЕЏ¬’l‚Є0‚Ж‚И‚й‚ж‚¤ЃjЃAЉЬ‚Ь‚И‚ўЏкЌ‡‚Нђі‹K‰»•ПЉ·ЃiЏЪЌЧ‚И’и‹`‚Н“®‰жЋQЏЖЃj
+#е¤–г‚ЊеЂ¤г‚’еђ«г‚Ђе ґеђ€гЃЇеЇѕж•°е¤‰жЏ›пј€жњЂе°ЏеЂ¤гЃЊ0гЃЁгЃЄг‚‹г‚€гЃ†пј‰гЂЃеђ«гЃѕгЃЄгЃ„е ґеђ€гЃЇж­Ји¦ЏеЊ–е¤‰жЏ›пј€и©ізґ°гЃЄе®љзѕ©гЃЇе‹•з”»еЏ‚з…§пј‰
 is.greater <- apply(x, 2, function(x){((quantile(x, 0.75) - quantile(x, 0.25))*1.5 + quantile(x, 0.75) - max(x)) < 0})
 is.greater
 
@@ -83,7 +83,9 @@ is.greater.2 <- apply(x, 2, function(x){(quantile(x, 0.25) - (quantile(x, 0.75) 
 is.greater.2
 
 x.g <- x[, is.greater | is.greater.2]
-x.u <- x[, -is.greater | is.greater.2]
+#x.u <- x[, -is.greater | is.greater.2]вЂ¦гѓђг‚°гѓ•г‚Јгѓѓг‚Їг‚№пј€200508е®џж–Ѕпј‰
+x.u <- x[, !(colnames(x) %in% c(colnames(x.g)))]
+
 
 preprocessed.x.g <- apply(x.g, 2, function(x.g) {log((x.g - min(x.g) + 1))})
 preprocessed.x.u <- apply(x.u, 2, function(x.u) {(x.u - mean(x.u)) / sd(x.u)})
@@ -91,8 +93,8 @@ preprocessed.x.u <- apply(x.u, 2, function(x.u) {(x.u - mean(x.u)) / sd(x.u)})
 preprocessed.x <- cbind(preprocessed.x.g, preprocessed.x.u)
 View(preprocessed.x)
 
-#–ј‘O‚М•ПЌX
+#еђЌе‰ЌгЃ®е¤‰ж›ґ
 multi.regression.x <- preprocessed.x[ , ]
 
-#–ј‘O‚М•ПЌX‹y‚СѓfЃ[ѓ^ѓtѓЊЃ[ѓЂ‚Ц‚М•ПЌX
+#еђЌе‰ЌгЃ®е¤‰ж›ґеЏЉгЃігѓ‡гѓјг‚їгѓ•гѓ¬гѓјгѓ гЃёгЃ®е¤‰ж›ґ
 multi.regression.compounds <- as.data.frame(cbind(preprocessed.y, preprocessed.x))
