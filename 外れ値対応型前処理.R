@@ -50,9 +50,9 @@ y <- complete.compounds[,c(1)]
 y
 
 #外れ値を含む場合は対数変換（最小値が0となるよう）、含まない場合は正規化変換（詳細な定義は動画参照）
-if (((quantile(y, 0.75) - quantile(y, 0.25))*1.5 + quantile(y, 0.75) - max(y)) < 0){                 # if ( 条件式 )
+if (as.numeric((quantile(y, 0.75) - quantile(y, 0.25))*1.5 + quantile(y, 0.75) - max(y)) < 0){                 # if ( 条件式 )
   preprocessed.y <- log((y - min(y) + 1))                   #  条件式が TRUE  のときに実行される部分
-} else if ((quantile(y, 0.25) - (quantile(y, 0.75) - quantile(y, 0.25))*1.5 - min(y))*(-1) < 0){
+} else if (as.numeric(quantile(y, 0.25) - (quantile(y, 0.75) - quantile(y, 0.25))*1.5 - min(y))*(-1) < 0){
   preprocessed.y <- (y - mean(y)) / sd(y)                   # 
 }
 
